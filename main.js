@@ -12,7 +12,7 @@ let dpOrder = [];
 let returnDist, bestLengthACT, inter;
 
 let nodes = [];
-let totalNodes = 5;
+let totalNodes = 7;
 document.addEventListener("DOMContentLoaded", SetupCanvas);
 
 function SetupCanvas() {
