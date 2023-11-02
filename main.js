@@ -45,9 +45,10 @@ function Render() {
   let vals2 = bestRoute(distMatrix.matrix, memoDist, 0, totalNodes);
   let minimCost = minCost(distMatrix.matrix, vals2, 0, totalNodes);
   bestPath2 = [...getPath(distMatrix.matrix, vals2, 0, totalNodes)];
+  console.log(bestPath2,bestPath);
 
   perm = factorial(totalNodes - 1);
-  console.log(minimCost);
+  //console.log(minimCost);
   let percent = ((count / perm) * 100).toFixed(5);
   if (count + 1 >= perm) {
     count = perm;
@@ -88,7 +89,7 @@ function Render() {
       nodes[newOrder[totalNodes - 1]]
     );
     inter = curLength + returnDist;
-    console.log(curLength, returnDist);
+    //console.log(curLength, returnDist);
     if (inter < bestLength) {
       bestLength = inter;
       for (i = 0; i < nodes.length; i++) {
@@ -98,17 +99,17 @@ function Render() {
       //console.log(bestPath, returnDist, curLength, bestLength)
     }
   }
-  console.log(bestLength);
+  //console.log(bestLength);
 
   for (let i = 0; i < totalNodes; i++) {
     dpOrder[i] = bestPath2[i];
   }
-  console.log(bestPath2);
+  //console.log(bestPath2);
 
   let best = distance(nodes, bestPath2);
   //let returnDist2 = distBetween(nodes[dpOrder[0]], nodes[dpOrder[totalNodes - 1]])
-  console.log(bestPath2, bestPath);
-  console.log(vals2);
+  //console.log(bestPath2, bestPath);
+  //console.log(distMatrix.matrix,vals2,memoDist);
 
   for (let i = 0; i < bestPath.length - 1; i++) {
     ctx.beginPath();

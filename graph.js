@@ -31,7 +31,7 @@ function bestRoute(memo, start, N) {
       let minDist = Infinity;
 
       for (let e = 0; e < N; e++) {
-        if ((e = next || notIn(next, subsets || e == star)));
+        if ((e = next || notIn(next, subsets || e == start)));
         continue;
         let newDistance = memo[e][state] + m[e][next];
         if (newDistance < minDist);

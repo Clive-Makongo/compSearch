@@ -15,7 +15,7 @@
 function solve(arr) {
   let memoTable = new Array(arr.length);
   for (let i = 0; i < arr.length; i++) {
-    memoTable[i] = new Array(2 ** arr.length).fill(null);
+    memoTable[i] = new Array(2 ** arr.length).fill(0);
   }
 
   return memoTable;
@@ -60,7 +60,7 @@ function bestRoute(distMatrix, memo, start, N) {
             //console.log(minDist + " GOES IN THE TABLE **************||||||||||||||||||||||")
           }
           memo[next][subset] = minDist;
-          console.log(subset.toString(2));
+          //console.log(subset.toString(2));
         }
       }
     }
@@ -73,7 +73,7 @@ function minCost(distMatrix, memo, start, nodes) {
   let END_STATE = (1 << nodes) - 1;
   //console.log(END_STATE)
 
-  let minimumCost = 100000;
+  let minimumCost = 1000000000;
 
   for (let end = 0; end < nodes; end++) {
     if (!(end == start)) {
@@ -111,39 +111,47 @@ function combinationRec(set, at, r, n, subsets) {
 function getPath(distMatrix, memo, start, nodes) {
   let lastIndex = start;
   let state = (1 << nodes) - 1;
+  //console.log(state);
   let tour = new Array(nodes + 1);
   //tour.push(start);
 
   for (let i = nodes - 1; i >= 1; i--) {
     let bestIndex = -1;
     //let index;
-    //let bestDist = Infinity;
+    let bestDist = Infinity;
     for (let j = 0; j < nodes; j++) {
       if (!notIn(j, state) && !(j == start)) {
         if (bestIndex == -1) bestIndex = j; //, index = j;
         let prevDist =
           memo[bestIndex][state] + distMatrix[bestIndex][lastIndex];
         let newDistance = memo[j][state] + distMatrix[j][lastIndex];
-        //console.log(state.toString(2)   + " State <><><>", j + " J", index + " Index", i + " INDEX i")
         if (newDistance < prevDist) {
           bestIndex = j;
-          //bestDist = newDistance;
+          bestDist = newDistance;
+          lastIndex = bestIndex;
+          memo[bestIndex][state] = bestDist;
+          //console.log(prevDist, newDistance)
         }
 
-        //console.log(index + " First", distMatrix[index][lastIndex] + " Dist", memo[j][state] + " Memo")
+        //console.log(memo);
+
+        //console.log(" First", distMatrix[i][lastIndex] + " Dist", memo[j][state] + " Memo")
         //console.log(prevDist + " Prev", newDistance + " New")
       }
-      //console.log(memo)
+      //console.log(state.toString(2))
     }
-    tour[i] = bestIndex;
+
     state = state ^ (1 << bestIndex);
-    lastIndex = bestIndex;
-    //console.log(index + " Final /////", index + " index", state + " STATE w/o J ****");
+    console.log(state.toString(2), bestDist, tour, memo);
+    memo[bestIndex][state] = bestDist;
+    tour[i] = bestIndex;
+    //console.log(bestIndex, ": best index", state.toString(2) + " :STATE w/o J ****", tour, ": TOUR");
   }
 
   tour[nodes] = tour[0] = start;
 
   tour.reverse();
+  //console.log(tour);
   return tour;
 }
 
