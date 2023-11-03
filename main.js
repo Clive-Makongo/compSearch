@@ -42,6 +42,7 @@ function SetupCanvas() {
 function Render() {
   let memo = solve(nodes);
   let memoDist = setup(distMatrix.matrix, memo, 0, totalNodes);
+  console.log(distMatrix)
   let vals2 = bestRoute(distMatrix.matrix, memoDist, 0, totalNodes);
   let minimCost = minCost(distMatrix.matrix, vals2, 0, totalNodes);
   bestPath2 = [...getPath(distMatrix.matrix, vals2, 0, totalNodes)];
@@ -140,7 +141,10 @@ function Render() {
   ctx.fillText("Best  LEX Distance: " + Math.ceil(bestLength), 20, 35);
   ctx.fillText("Best  DP Distance: " + Math.ceil(best), 440, 560);
 
-  requestAnimationFrame(Render);
+  if (percent <= 100) {
+    requestAnimationFrame(Render);
+  }
+  
 }
 
 function swap(arr, i, j) {

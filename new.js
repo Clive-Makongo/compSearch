@@ -15,7 +15,7 @@
 function solve(arr) {
   let memoTable = new Array(arr.length);
   for (let i = 0; i < arr.length; i++) {
-    memoTable[i] = new Array(2 ** arr.length).fill(0);
+    memoTable[i] = new Array(2 ** arr.length).fill(null);
   }
 
   return memoTable;
@@ -129,7 +129,6 @@ function getPath(distMatrix, memo, start, nodes) {
           bestIndex = j;
           bestDist = newDistance;
           lastIndex = bestIndex;
-          memo[bestIndex][state] = bestDist;
           //console.log(prevDist, newDistance)
         }
 
@@ -143,7 +142,6 @@ function getPath(distMatrix, memo, start, nodes) {
 
     state = state ^ (1 << bestIndex);
     console.log(state.toString(2), bestDist, tour, memo);
-    memo[bestIndex][state] = bestDist;
     tour[i] = bestIndex;
     //console.log(bestIndex, ": best index", state.toString(2) + " :STATE w/o J ****", tour, ": TOUR");
   }
