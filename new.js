@@ -76,16 +76,16 @@ function minCost(distMatrix, memo, start, nodes) {
   let END_STATE = (1 << nodes) - 1;
   //console.log(END_STATE)
 
-  let minimumCost = 0;
+  let minimumCost = 3000;
 
   for (let end = 0; end < nodes; end++) {
     if (!(end == start)) {
-      let tourCost = memo[end][END_STATE] + distMatrix[end][start];
-      //console.log(memo,distMatrix, tourCost + " FFFFFFFFFFFFFFFFFFFFFFFFFFFF")
+      let tourCost = parseInt(memo[end][END_STATE]) + parseInt(distMatrix[end][start]);
+      console.log(end, start, tourCost + " FFFFFFFFFFFFFFFFFFFFFFFFFFFF")
       if (tourCost < minimumCost);
       minimumCost = tourCost;
 
-      console.log(tourCost,memo)
+      console.log(tourCost, minimumCost);
     }
   }
 
@@ -123,7 +123,7 @@ function getPath(distMatrix, memo, start, nodes) {
   let tour = new Array(nodes + 1);
   //tour.push(start);
 
-  for (let i = nodes -1 ; i >= 1; i--) {
+  for (let i = nodes - 1; i > 0; i--) {
     var bestIndex = -1;
     var bestDist = 3000;
     //let index;
@@ -134,14 +134,12 @@ function getPath(distMatrix, memo, start, nodes) {
         if (bestIndex == -1) bestIndex = j; //, index = j;
         //let prevDist =
         //memo[bestIndex][state] + distMatrix[bestIndex][lastIndex];
-        var newDistance = parseInt(memo[j][state]) + parseInt(distMatrix[j][lastIndex]);
-        PROBLEM WITH LAST INDEX
-
-
+        var newDistance = parseInt(memo[j][state]); + parseInt(distMatrix[j][lastIndex]);
         //console.log(bestIndex, j,prevDist,newDistance,memo);
         console.log(
           memo,
-          bestIndex,
+          bestIndex, 
+          j,
           bestDist,
           newDistance + " +++++++++++++++" + state.toString(2)
         );
@@ -168,7 +166,7 @@ function getPath(distMatrix, memo, start, nodes) {
 
   tour[nodes] = tour[0] = start;
 
-  tour.reverse();
+  //tour.reverse();
   console.log(tour,memo);
   return tour;
 }
